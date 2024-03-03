@@ -238,6 +238,25 @@ namespace Coffee.UIEffects
                         Packer.ToFloat(uvBounds.xMax, uvBounds.yMax));
 
                     // Quad
+                    // 矩形从左上角开始顺时针排列，其中左上角和右下角的顶点会重复
+                    /// VertexHelper ..
+                    /// GetUIVertexStream 得到的是以三角形 渲染顶点列表 count = 文字数量 * 6
+                    /// AddUIVertexTriangleStream 用这个设置
+                    /// 5/0 ---- 1
+                    ///  | \    |
+                    ///  |  \   |
+                    ///  |   \  |
+                    ///  |    \ |
+                    ///  4-----3/2
+                    /// currentVertCount 得到的是矩形  渲染顶点列表 count = 文字数量 * 4
+                    /// 要获得顶点  需要用 PopulateUIVertex
+                    /// 设置顶点 可用 AddUIVertexQuad
+                    ///  0 ---- 1
+                    ///  | \    |
+                    ///  |  \   |
+                    ///  |   \  |
+                    ///  |    \ |
+                    ///  3 ---- 2
                     for (int j = 0; j < bundleSize; j += 6)
                     {
                         Vector3 cornerPos1 = s_TempVerts[i + j + 1].position;
